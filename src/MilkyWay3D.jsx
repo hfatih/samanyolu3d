@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect } from "react";
+import React, { useRef, useMemo, useState, useEffect, useCallback } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Stars, Text } from "@react-three/drei";
 import { Leva, useControls, useCreateStore } from "leva";
@@ -199,7 +199,49 @@ export default function MilkyWay3D() {
   const [seed] = useState(42);
   const controlsStore = useCreateStore();
   const [galaxyKey, setGalaxyKey] = useState("milkyway");
+  const [controlValues, setControlValues] = useState(() => ({ ...GALAXIES.milkyway.controls }));
   const [customValues, setCustomValues] = useState(() => ({ ...GALAXIES.milkyway.controls }));
+  const customValuesRef = useRef(customValues);
+
+  useEffect(() => {
+    customValuesRef.current = customValues;
+  }, [customValues]);
+
+  const handleControlChange = useCallback(
+    (key, value) => {
+      setControlValues((prev) => ({ ...prev, [key]: value }));
+      if (galaxyKey === "custom") {
+        setCustomValues((prev) => ({ ...prev, [key]: value }));
+      }
+    },
+    [galaxyKey]
+  );
+
+  useControls(
+    "Galaksi Ayarları",
+    () => ({
+      arms: { label: "Kol sayısı", value: controlValues.arms, min: 2, max: 8, step: 1, onChange: (value) => handleControlChange("arms", value) },
+      armTwist: { label: "Kol burulması", value: controlValues.armTwist, min: 0.0, max: 4, step: 0.1, onChange: (value) => handleControlChange("armTwist", value) },
+      armSpread: { label: "Kol yayılımı", value: controlValues.armSpread, min: 0.05, max: 1.2, step: 0.01, onChange: (value) => handleControlChange("armSpread", value) },
+      diskWarp: { label: "Disk burkulması", value: controlValues.diskWarp, min: 0, max: 40, step: 1, onChange: (value) => handleControlChange("diskWarp", value) },
+      starCount: { label: "Disk yıldız örneği", value: controlValues.starCount, min: 20000, max: 400000, step: 1000, onChange: (value) => handleControlChange("starCount", value) },
+      bulgeCount: { label: "Çekirdek yıldız örneği", value: controlValues.bulgeCount, min: 2000, max: 80000, step: 1000, onChange: (value) => handleControlChange("bulgeCount", value) },
+      haloCount: { label: "Halo yıldız örneği", value: controlValues.haloCount, min: 2000, max: 100000, step: 1000, onChange: (value) => handleControlChange("haloCount", value) },
+      showDust: { label: "Toz katmanını göster", value: controlValues.showDust, onChange: (value) => handleControlChange("showDust", value) },
+      starSize: { label: "Yıldız boyutu", value: controlValues.starSize, min: 0.1, max: 3, step: 0.1, onChange: (value) => handleControlChange("starSize", value) },
+      rotationSpeed: { label: "Dönüş hızı", value: controlValues.rotationSpeed, min: 0, max: 0.2, step: 0.005, onChange: (value) => handleControlChange("rotationSpeed", value) }
+    }),
+    { store: controlsStore },
+    [controlValues, handleControlChange]
+  );
+
+  useEffect(() => {
+    const targetControls = galaxyKey === "custom" ? customValuesRef.current : GALAXIES[galaxyKey].controls;
+    setControlValues({ ...targetControls });
+    Object.entries(targetControls).forEach(([key, value]) => {
+      controlsStore.set({ path: `Galaksi Ayarları.${key}`, value });
+    });
+  }, [galaxyKey, controlsStore]);
 
   const {
     arms,
@@ -212,52 +254,7 @@ export default function MilkyWay3D() {
     showDust,
     starSize,
     rotationSpeed
-  } = useControls(
-    "Galaksi Ayarları",
-    {
-      arms: { label: "Kol sayısı", value: GALAXIES.milkyway.controls.arms, min: 2, max: 8, step: 1 },
-      armTwist: { label: "Kol burulması", value: GALAXIES.milkyway.controls.armTwist, min: 0.0, max: 4, step: 0.1 },
-      armSpread: { label: "Kol yayılımı", value: GALAXIES.milkyway.controls.armSpread, min: 0.05, max: 1.2, step: 0.01 },
-      diskWarp: { label: "Disk burkulması", value: GALAXIES.milkyway.controls.diskWarp, min: 0, max: 40, step: 1 },
-      starCount: { label: "Disk yıldız örneği", value: GALAXIES.milkyway.controls.starCount, min: 20000, max: 400000, step: 1000 },
-      bulgeCount: { label: "Çekirdek yıldız örneği", value: GALAXIES.milkyway.controls.bulgeCount, min: 2000, max: 80000, step: 1000 },
-      haloCount: { label: "Halo yıldız örneği", value: GALAXIES.milkyway.controls.haloCount, min: 2000, max: 100000, step: 1000 },
-      showDust: { label: "Toz katmanını göster", value: GALAXIES.milkyway.controls.showDust },
-      starSize: { label: "Yıldız boyutu", value: GALAXIES.milkyway.controls.starSize, min: 0.1, max: 3, step: 0.1 },
-      rotationSpeed: { label: "Dönüş hızı", value: GALAXIES.milkyway.controls.rotationSpeed, min: 0, max: 0.2, step: 0.005 }
-    },
-    { store: controlsStore }
-  );
-
-  const controlValues = useMemo(
-    () => ({
-      arms,
-      armTwist,
-      armSpread,
-      diskWarp,
-      starCount,
-      bulgeCount,
-      haloCount,
-      showDust,
-      starSize,
-      rotationSpeed
-    }),
-    [arms, armTwist, armSpread, diskWarp, starCount, bulgeCount, haloCount, showDust, starSize, rotationSpeed]
-  );
-
-  useEffect(() => {
-    const targetControls = galaxyKey === "custom" ? customValues : GALAXIES[galaxyKey].controls;
-    Object.entries(targetControls).forEach(([key, value]) => {
-      controlsStore.set({ path: `Galaksi Ayarları.${key}`, value });
-    });
-  }, [galaxyKey, controlsStore]);
-
-  useEffect(() => {
-    if (galaxyKey === "custom") {
-      setCustomValues((prev) => ({ ...prev, ...controlValues }));
-    }
-  }, [galaxyKey, controlValues]);
-
+  } = controlValues;
   const spiral = useMemo(
     () =>
       generateSpiralArmStars({
