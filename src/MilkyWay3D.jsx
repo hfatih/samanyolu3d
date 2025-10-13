@@ -1,72 +1,11 @@
-import React, { useRef, useMemo, useState, useEffect, useCallback } from "react";
+import React, { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Stars, Text } from "@react-three/drei";
-import { Leva, useControls, useCreateStore } from "leva";
+import { Leva, useControls } from "leva";
 import * as THREE from "three";
 
 // (Component code shortened for clarity — full component from user canvas)
-const GALAXIES = {
-  milkyway: {
-    name: "Samanyolu",
-    description: "Çubuklu spiral galaksi, disk içinde belirgin spiral kollar ve yıldız yoğun merkez.",
-    realStarCount: 150_000_000_000,
-    references: [
-      "NASA GSFC (2020) — Milky Way Fact Sheet",
-      "ESA/Hubble (2015) — Milky Way star census"
-    ],
-    controls: {
-      arms: 4,
-      armTwist: 1.6,
-      armSpread: 0.42,
-      diskWarp: 10,
-      starCount: 120000,
-      bulgeCount: 22000,
-      haloCount: 18000,
-      showDust: true,
-      starSize: 1.6,
-      rotationSpeed: 0.02
-    }
-  },
-  andromeda: {
-    name: "Andromeda (M31)",
-    description: "Samanyolu'na benzer fakat daha büyük bir spiral galaksi; daha sıkı kollar.",
-    realStarCount: 1_000_000_000_000,
-    references: [
-      "NASA/JPL-Caltech (2015) — Andromeda dust and star survey",
-      "ESA/Hubble (2021) — Panchromatic view of M31"
-    ],
-    controls: {
-      arms: 5,
-      armTwist: 1.3,
-      armSpread: 0.35,
-      diskWarp: 6,
-      starCount: 165000,
-      bulgeCount: 30000,
-      haloCount: 26000,
-      showDust: true,
-      starSize: 1.4,
-      rotationSpeed: 0.018
-    }
-  }
-};
-
-const GALAXY_KEYS = Object.keys(GALAXIES);
-
-function formatLargeNumber(value) {
-  if (value >= 1_000_000_000_000) return `${(value / 1_000_000_000_000).toFixed(2)} trilyon`;
-  if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(2)} milyar`;
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(2)} milyon`;
-  if (value >= 1000) return `${(value / 1000).toFixed(2)} bin`;
-  return Math.round(value).toString();
-}
-
-function formatScale(realCount, sampleCount) {
-  if (!realCount || !sampleCount) return "—";
-  const perPoint = realCount / sampleCount;
-  return `1 nokta ≈ ${formatLargeNumber(perPoint)} yıldız`;
-}
-
-function generateSpiralArmStars({ count, arms = 4, armSpread = 0.5, armTwist = 1.5, radius = 150, randomness = 0.6, height = 6, warp = 0, seed = 42 }) {
+function generateSpiralArmStars({ count, arms = 4, armSpread = 0.5, armTwist = 1.5, radius = 150, randomness = 0.6, height = 6, seed = 42 }) {
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
   const rng = mulberry32(seed);
@@ -79,10 +18,9 @@ function generateSpiralArmStars({ count, arms = 4, armSpread = 0.5, armTwist = 1
     const rr = r + normalRandom(rng) * randomness * (1 + r / radius);
     const x = Math.cos(phi) * rr;
     const y = Math.sin(phi) * rr;
-    const warpOffset = warp * Math.pow(r / radius, 1.2) * Math.sin(phi * 2 + r * 0.035);
     positions[3 * i] = x;
     positions[3 * i + 1] = y;
-    positions[3 * i + 2] = z + warpOffset;
+    positions[3 * i + 2] = z;
     const t = r / radius;
     const color = new THREE.Color().setHSL(0.6 - 0.4 * t, 0.8 - 0.5 * t, 0.5 + 0.4 * (1 - t));
     colors[3 * i] = color.r;
@@ -164,6 +102,7 @@ function GalacticLabels() {
   const labels = [
     { text: "Güneş Sistemi", position: [85, 0, 0], color: "#ffcc00" },
     { text: "Orion Kolu", position: [120, 20, 0], color: "#7fbfff" },
+    { text: "Sagittarius Kolu", position: [60, -60, 0], color: "#ff9999" },
     { text: "Galaktik Merkez", position: [0, 0, 0], color: "#ffd580" },
   ];
   return (
@@ -197,103 +136,23 @@ function GalaxyContent({ spiral, bulge, halo, showDust, starSize, rotationSpeed 
 }
 export default function MilkyWay3D() {
   const [seed] = useState(42);
-  const controlsStore = useCreateStore();
-  const [galaxyKey, setGalaxyKey] = useState("milkyway");
-  const [controlValues, setControlValues] = useState(() => ({ ...GALAXIES.milkyway.controls }));
-  const [customValues, setCustomValues] = useState(() => ({ ...GALAXIES.milkyway.controls }));
-  const customValuesRef = useRef(customValues);
-
-  useEffect(() => {
-    customValuesRef.current = customValues;
-  }, [customValues]);
-
-  const handleControlChange = useCallback(
-    (key, value) => {
-      setControlValues((prev) => ({ ...prev, [key]: value }));
-      if (galaxyKey === "custom") {
-        setCustomValues((prev) => ({ ...prev, [key]: value }));
-      }
-    },
-    [galaxyKey]
-  );
-
-  useControls(
-    "Galaksi Ayarları",
-    () => ({
-      arms: { label: "Kol sayısı", value: controlValues.arms, min: 2, max: 8, step: 1, onChange: (value) => handleControlChange("arms", value) },
-      armTwist: { label: "Kol burulması", value: controlValues.armTwist, min: 0.0, max: 4, step: 0.1, onChange: (value) => handleControlChange("armTwist", value) },
-      armSpread: { label: "Kol yayılımı", value: controlValues.armSpread, min: 0.05, max: 1.2, step: 0.01, onChange: (value) => handleControlChange("armSpread", value) },
-      diskWarp: { label: "Disk burkulması", value: controlValues.diskWarp, min: 0, max: 40, step: 1, onChange: (value) => handleControlChange("diskWarp", value) },
-      starCount: { label: "Disk yıldız örneği", value: controlValues.starCount, min: 20000, max: 400000, step: 1000, onChange: (value) => handleControlChange("starCount", value) },
-      bulgeCount: { label: "Çekirdek yıldız örneği", value: controlValues.bulgeCount, min: 2000, max: 80000, step: 1000, onChange: (value) => handleControlChange("bulgeCount", value) },
-      haloCount: { label: "Halo yıldız örneği", value: controlValues.haloCount, min: 2000, max: 100000, step: 1000, onChange: (value) => handleControlChange("haloCount", value) },
-      showDust: { label: "Toz katmanını göster", value: controlValues.showDust, onChange: (value) => handleControlChange("showDust", value) },
-      starSize: { label: "Yıldız boyutu", value: controlValues.starSize, min: 0.1, max: 3, step: 0.1, onChange: (value) => handleControlChange("starSize", value) },
-      rotationSpeed: { label: "Dönüş hızı", value: controlValues.rotationSpeed, min: 0, max: 0.2, step: 0.005, onChange: (value) => handleControlChange("rotationSpeed", value) }
-    }),
-    { store: controlsStore },
-    [controlValues, handleControlChange]
-  );
-
-  useEffect(() => {
-    const targetControls = galaxyKey === "custom" ? customValuesRef.current : GALAXIES[galaxyKey].controls;
-    setControlValues({ ...targetControls });
-    Object.entries(targetControls).forEach(([key, value]) => {
-      controlsStore.set({ path: `Galaksi Ayarları.${key}`, value });
-    });
-  }, [galaxyKey, controlsStore]);
-
-  const {
-    arms,
-    armTwist,
-    armSpread,
-    diskWarp,
-    starCount,
-    bulgeCount,
-    haloCount,
-    showDust,
-    starSize,
-    rotationSpeed
-  } = controlValues;
-  const spiral = useMemo(
-    () =>
-      generateSpiralArmStars({
-        count: Math.max(1000, Math.floor(starCount)),
-        arms,
-        armSpread,
-        armTwist,
-        radius: 160,
-        randomness: 0.9,
-        height: 6,
-        warp: diskWarp,
-        seed
-      }),
-    [arms, armSpread, armTwist, starCount, diskWarp, seed]
-  );
+  const { arms, armTwist, armSpread, starCount, bulgeCount, haloCount, showDust, starSize, rotationSpeed } = useControls("Galaxy", {
+    arms: { value: 4, min: 2, max: 6, step: 1 },
+    armTwist: { value: 1.6, min: 0.2, max: 4, step: 0.1 },
+    armSpread: { value: 0.4, min: 0.05, max: 1.2, step: 0.01 },
+    starCount: { value: 120000, min: 20000, max: 300000, step: 1000 },
+    bulgeCount: { value: 20000, min: 2000, max: 60000, step: 1000 },
+    haloCount: { value: 15000, min: 2000, max: 80000, step: 1000 },
+    showDust: true,
+    starSize: { value: 1.6, min: 0.1, max: 3, step: 0.1 },
+    rotationSpeed: { value: 0.02, min: 0, max: 0.2, step: 0.005 },
+  });
+  const spiral = useMemo(() => generateSpiralArmStars({ count: Math.max(1000, Math.floor(starCount)), arms, armSpread, armTwist, radius: 160, randomness: 0.9, height: 6, seed }), [arms, armSpread, armTwist, starCount, seed]);
   const bulge = useMemo(() => generateBulgeStars({ count: Math.max(100, Math.floor(bulgeCount)), radius: 20, seed: seed + 1 }), [bulgeCount, seed]);
   const halo = useMemo(() => generateHaloStars({ count: Math.max(100, Math.floor(haloCount)), radius: 800, seed: seed + 2 }), [haloCount, seed]);
-
-  const activeGalaxy = galaxyKey === "custom" ? { name: "Özel Galaksi", description: "Kendi ayarlarınızı kullanarak özelleştirilmiş görünüm.", realStarCount: GALAXIES.milkyway.realStarCount, references: ["Özel ayarlar — kullanıcı tanımlı"] } : GALAXIES[galaxyKey];
-  const activeSampleTotal = starCount + bulgeCount + haloCount;
-  const activeScaleText = formatScale(activeGalaxy.realStarCount, activeSampleTotal);
-
-  const presetSummaries = useMemo(() => {
-    return GALAXY_KEYS.map((key) => {
-      const preset = GALAXIES[key];
-      const sampleTotal = preset.controls.starCount + preset.controls.bulgeCount + preset.controls.haloCount;
-      return {
-        key,
-        name: preset.name,
-        description: preset.description,
-        scaleText: formatScale(preset.realStarCount, sampleTotal),
-        references: preset.references
-      };
-    });
-  }, []);
-
   return (
     <div style={{ width: "100vw", height: "100vh", background: "radial-gradient(#020112 0%, #000814 60%, #000000 100%)", position: "relative" }}>
-      <Leva store={controlsStore} collapsed={false} />
+      <Leva collapsed={false} />
       <Canvas camera={{ position: [0, -220, 120], fov: 45 }}>
         <ambientLight intensity={0.6} />
         <pointLight position={[400, 200, 200]} intensity={1.2} />
@@ -301,47 +160,10 @@ export default function MilkyWay3D() {
         <Stars radius={2000} depth={50} count={5000} factor={4} saturation={0} fade />
         <OrbitControls autoRotate={false} enablePan enableZoom />
       </Canvas>
-      <div className="ui-container">
-        <div className="ui-card hoverable">
-          <h2 className="ui-title">Galaksi Seçici</h2>
-          <p className="ui-subtitle">{activeGalaxy.name}</p>
-          <p className="ui-description">{activeGalaxy.description}</p>
-          <div className="button-row">
-            <button type="button" className={`galaxy-button ${galaxyKey === "milkyway" ? "active" : ""}`} onClick={() => setGalaxyKey("milkyway")}>
-              Samanyolu
-            </button>
-            <button type="button" className={`galaxy-button ${galaxyKey === "andromeda" ? "active" : ""}`} onClick={() => setGalaxyKey("andromeda")}>
-              Andromeda
-            </button>
-            <button type="button" className={`galaxy-button ${galaxyKey === "custom" ? "active" : ""}`} onClick={() => setGalaxyKey("custom")}>
-              Özel Ayar
-            </button>
-          </div>
-          <div className="scale-line">
-            <span className="scale-label">Yıldız ölçeği:</span>
-            <span className="scale-value">{activeScaleText}</span>
-          </div>
-        </div>
-        <div className="ui-card reference-card hoverable">
-          <h3 className="ui-heading">Referanslar & Ölçekler</h3>
-          {presetSummaries.map(({ key, name, description, scaleText, references }) => (
-            <div key={key} className="reference-block">
-              <strong className="reference-title">{name}</strong>
-              <span className="reference-scale">{scaleText}</span>
-              <p className="reference-description">{description}</p>
-              <ul className="reference-list">
-                {references.map((ref, idx) => (
-                  <li key={idx} className="reference-item">
-                    {ref}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="ui-card hoverable note-card">
-          <small>Not: Bu görselleştirme gerçek-ölçekli değildir; sayısal değerler eğitim ve sunum amaçlı ölçeklenmiştir.</small>
-        </div>
+      <div style={{ position: "absolute", left: 20, top: 20, color: "#dfe7ff", fontFamily: "Inter, Arial, sans-serif", maxWidth: 420, pointerEvents: "none" }}>
+        <h2 style={{ margin: 0 }}>Samanyolu — 3B Görselleştirici</h2>
+        <p style={{ marginTop: 6, opacity: 0.9 }}>Etkileşimli model: spiral kollar, disk, bulge (çekirdek) ve halo. Galaktik etiketler eklenmiştir.</p>
+        <small style={{ opacity: 0.7 }}>Not: Görselleştirme gerçek ölçekte değildir; eğitim ve sunum amaçlıdır.</small>
       </div>
     </div>
 );
