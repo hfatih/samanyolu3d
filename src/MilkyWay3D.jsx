@@ -10,10 +10,6 @@ const GALAXIES = {
     name: "Samanyolu",
     description: "Çubuklu spiral galaksi, disk içinde belirgin spiral kollar ve yıldız yoğun merkez.",
     realStarCount: 150_000_000_000,
-    references: [
-      "NASA GSFC (2020) — Milky Way Fact Sheet",
-      "ESA/Hubble (2015) — Milky Way star census"
-    ],
     controls: {
       arms: 4,
       armTwist: 1.6,
@@ -31,10 +27,6 @@ const GALAXIES = {
     name: "Andromeda (M31)",
     description: "Samanyolu'na benzer fakat daha büyük bir spiral galaksi; daha sıkı kollar.",
     realStarCount: 1_000_000_000_000,
-    references: [
-      "NASA/JPL-Caltech (2015) — Andromeda dust and star survey",
-      "ESA/Hubble (2021) — Panchromatic view of M31"
-    ],
     controls: {
       arms: 5,
       armTwist: 1.3,
@@ -315,9 +307,6 @@ export default function MilkyWay3D() {
             </button>
             <button type="button" className={`galaxy-button ${galaxyKey === "andromeda" ? "active" : ""}`} onClick={() => setGalaxyKey("andromeda")}>
               Andromeda
-            </button>
-            <button type="button" className={`galaxy-button ${galaxyKey === "custom" ? "active" : ""}`} onClick={() => setGalaxyKey("custom")}>
-              Özel Ayar
             </button>
           </div>
           <div className="scale-line">
