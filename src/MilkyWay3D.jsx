@@ -308,6 +308,9 @@ export default function MilkyWay3D() {
             <button type="button" className={`galaxy-button ${galaxyKey === "andromeda" ? "active" : ""}`} onClick={() => setGalaxyKey("andromeda")}>
               Andromeda
             </button>
+            <button type="button" className={`galaxy-button ${galaxyKey === "custom" ? "active" : ""}`} onClick={() => setGalaxyKey("custom")}>
+              Özel Ayar
+            </button>
           </div>
           <div className="scale-line">
             <span className="scale-label">Yıldız ölçeği:</span>
