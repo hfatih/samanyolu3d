@@ -1,8 +1,10 @@
 <div align="center">
 
-# 🌌 MilkyWay 3D / Samanyolu 3D
+# 🌌 Samanyolu 3D
 
-**Interactive 3D galaxy simulation and procedural galactic visualization in your browser.**
+### Interactive Galaxy Simulator
+
+**Build, spin and reshape spiral galaxies in real time — right in your browser.**
 
 [English](README.md) · [Türkçe](README.tr.md)
 
@@ -25,7 +27,7 @@
 
 ## 🔭 Overview
 
-**MilkyWay 3D** is a real-time, interactive 3D procedural simulation and visualization of spiral galaxies. Built with **React**, **Three.js**, and **React Three Fiber (R3F)**, it renders tens of thousands of dynamic stellar particles representing galactic discs, central bulges, outer haloes, and interstellar dust clouds.
+**Samanyolu 3D** (*Samanyolu* is Turkish for "Milky Way") is a real-time, interactive 3D procedural simulation and visualization of spiral galaxies. Built with **React**, **Three.js**, and **React Three Fiber (R3F)**, it renders tens of thousands of dynamic stellar particles representing galactic discs, central bulges, outer haloes, and interstellar dust clouds.
 
 Explore structural models based on astrophysical data from the **Milky Way** and **Andromeda (M31)**, or design custom galactic morphologies in real time with the interactive GUI.
 
