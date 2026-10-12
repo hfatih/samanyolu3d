@@ -1,8 +1,10 @@
 <div align="center">
 
-# 🌌 Samanyolu 3D / MilkyWay 3D
+# 🌌 Samanyolu 3D
 
-**Tarayıcınızda çalışan interaktif 3B galaksi simülasyonu ve prosedürel modelleme.**
+### İnteraktif Galaksi Simülatörü
+
+**Spiral galaksileri gerçek zamanlı kurun, döndürün ve yeniden şekillendirin — doğrudan tarayıcınızda.**
 
 [English](README.md) · [Türkçe](README.tr.md)
 
@@ -25,7 +27,7 @@
 
 ## 🔭 Genel Bakış
 
-**Samanyolu 3D (MilkyWay 3D)**, spiral galaksilerin morfolojisini, yıldız dağılımlarını ve dinamik yapılarını doğrudan tarayıcınızda modelleyen gerçek zamanlı ve interaktif bir 3 boyutlu simülasyon projesidir. **React**, **Three.js** ve **React Three Fiber (R3F)** teknolojileri kullanılarak geliştirilmiştir.
+**Samanyolu 3D**, spiral galaksilerin morfolojisini, yıldız dağılımlarını ve dinamik yapılarını doğrudan tarayıcınızda modelleyen gerçek zamanlı ve interaktif bir 3 boyutlu simülasyon projesidir. **React**, **Three.js** ve **React Three Fiber (R3F)** teknolojileri kullanılarak geliştirilmiştir.
 
 Uygulama; **Samanyolu** ve **Andromeda (M31)** galaksilerine ait astrofiziksel verileri referans alan hazır modeller sunmanın yanı sıra, kullanıcının serbestçe kendi galaktik yapısını tasarlayabileceği kapsamlı bir kontrol paneli (Leva GUI) içerir.
 
