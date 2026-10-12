@@ -8,7 +8,8 @@
 
 [English](README.md) · [Türkçe](README.tr.md)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-samanyolu3d.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://samanyolu3d.netlify.app/)
+[![Live Demo (GitHub Pages)](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-e7a0b9?style=for-the-badge&logo=github&logoColor=white)](https://hfatih.github.io/samanyolu3d/)
+[![Live Mirror (Netlify)](https://img.shields.io/badge/Live%20Mirror-samanyolu3d.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://samanyolu3d.netlify.app/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Hfatih%2Fsamanyolu3d-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Hfatih/samanyolu3d)
 
 <br/>
@@ -31,7 +32,7 @@
 
 Explore structural models based on astrophysical data from the **Milky Way** and **Andromeda (M31)**, or design custom galactic morphologies in real time with the interactive GUI.
 
-> 🚀 **Live Application:** [samanyolu3d.netlify.app](https://samanyolu3d.netlify.app/)
+> 🚀 **Live Application:** [✦ GitHub Pages Demo](https://hfatih.github.io/samanyolu3d/) · [Netlify Mirror](https://samanyolu3d.netlify.app/)
 
 ---
 
