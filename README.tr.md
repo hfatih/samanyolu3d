@@ -121,6 +121,12 @@ Uygulama; **Samanyolu** ve **Andromeda (M31)** galaksilerine ait astrofiziksel v
 npm run build
 ```
 
+Üretim derlemesini yerel olarak test etmek için:
+
+```bash
+npm run preview
+```
+
 Oluşturulan optimize dosyalar `dist/` klasöründe yer alır ve Netlify, Vercel veya GitHub Pages gibi herhangi bir statik sunucuda doğrudan yayınlanabilir.
 
 ### Netlify Yapılandırması
