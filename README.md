@@ -121,6 +121,12 @@ To generate an optimized production build:
 npm run build
 ```
 
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
 The output files will be in the `dist/` directory, ready to be served on any static hosting platform.
 
 ### Netlify Deployment
