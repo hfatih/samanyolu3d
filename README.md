@@ -80,7 +80,7 @@ Explore structural models based on astrophysical data from the **Milky Way** and
 - **3D Graphics & WebGL**: Three.js, `@react-three/fiber`, `@react-three/drei`
 - **Parameter Controls**: `leva`
 - **Bundler & Tooling**: Vite 5
-- **Hosting & CI/CD**: Netlify
+- **Hosting & CI/CD**: GitHub Pages (GitHub Actions) & Netlify
 
 ---
 
