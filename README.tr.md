@@ -80,7 +80,7 @@ Uygulama; **Samanyolu** ve **Andromeda (M31)** galaksilerine ait astrofiziksel v
 - **3B Grafikler & WebGL**: Three.js, `@react-three/fiber`, `@react-three/drei`
 - **Arayüz & Kontrol**: `leva`, Modern CSS (Glassmorphism)
 - **Derleyici & Araçlar**: Vite 5
-- **Yayın & CI/CD**: Netlify
+- **Yayın & CI/CD**: GitHub Pages (GitHub Actions) & Netlify
 
 ---
 
