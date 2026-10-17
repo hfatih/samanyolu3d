@@ -22,6 +22,8 @@
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
+![Views](https://hits.sh/github.com/hfatih/samanyolu3d.svg?style=flat-square&label=views&color=e7a0b9) [![Stars](https://img.shields.io/github/stars/hfatih/samanyolu3d?style=flat-square&label=stars&color=f0abc5)](https://github.com/hfatih/samanyolu3d/stargazers) [![Forks](https://img.shields.io/github/forks/hfatih/samanyolu3d?style=flat-square&label=forks&color=dba8c2)](https://github.com/hfatih/samanyolu3d/forks) [![Last commit](https://img.shields.io/github/last-commit/hfatih/samanyolu3d?style=flat-square&label=last%20commit&color=bca4dd)](https://github.com/hfatih/samanyolu3d/commits)
+
 </div>
 
 ---
