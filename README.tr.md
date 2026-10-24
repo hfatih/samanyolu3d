@@ -137,6 +137,15 @@ Proje Netlify otomatik dağıtımına hazırdır:
 - **Build command**: `npm run build`
 - **Publish directory**: `dist`
 
+### 🌐 Tarayıcı Desteği
+
+| Tarayıcı | Minimum Sürüm | WebGL 2.0 Desteği |
+| :--- | :--- | :--- |
+| Google Chrome | 56+ | ✅ Tam Destek |
+| Mozilla Firefox | 51+ | ✅ Tam Destek |
+| Microsoft Edge | 79+ | ✅ Tam Destek |
+| Apple Safari | 15+ | ✅ Tam Destek |
+
 ---
 
 ## 📚 Bilimsel Referanslar ve Notlar
