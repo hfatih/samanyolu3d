@@ -135,6 +135,15 @@ This repository is pre-configured for automatic Netlify continuous deployment:
 - **Build command**: `npm run build`
 - **Publish directory**: `dist`
 
+### 🌐 Browser Support
+
+| Browser | Minimum Version | WebGL 2.0 Support |
+| :--- | :--- | :--- |
+| Google Chrome | 56+ | ✅ Full Support |
+| Mozilla Firefox | 51+ | ✅ Full Support |
+| Microsoft Edge | 79+ | ✅ Full Support |
+| Apple Safari | 15+ | ✅ Full Support |
+
 ---
 
 ## 📚 References & Scientific Notes
