@@ -8,8 +8,7 @@
 
 [English](README.md) · [Türkçe](README.tr.md)
 
-[![Canlı Demo (GitHub Pages)](https://img.shields.io/badge/Canl%C4%B1%20Demo-GitHub%20Pages-e7a0b9?style=for-the-badge&logo=github&logoColor=white)](https://hfatih.github.io/samanyolu3d/)
-[![Canlı Ayna (Netlify)](https://img.shields.io/badge/Canl%C4%B1%20Ayna-samanyolu3d.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://samanyolu3d.netlify.app/)
+[![Canlı Demo (Netlify)](https://img.shields.io/badge/Canl%C4%B1%20Demo-samanyolu3d.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://samanyolu3d.netlify.app/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Hfatih%2Fsamanyolu3d-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Hfatih/samanyolu3d)
 
 <br/>
@@ -34,7 +33,7 @@
 
 Uygulama; **Samanyolu** ve **Andromeda (M31)** galaksilerine ait astrofiziksel verileri referans alan hazır modeller sunmanın yanı sıra, kullanıcının serbestçe kendi galaktik yapısını tasarlayabileceği kapsamlı bir kontrol paneli (Leva GUI) içerir.
 
-> 🚀 **Canlı Uygulama:** [✦ GitHub Pages Demosu](https://hfatih.github.io/samanyolu3d/) · [Netlify Yayını](https://samanyolu3d.netlify.app/)
+> 🚀 **Canlı Uygulama:** [✦ Netlify Canlı Demo](https://samanyolu3d.netlify.app/)
 
 ---
 
@@ -82,7 +81,7 @@ Uygulama; **Samanyolu** ve **Andromeda (M31)** galaksilerine ait astrofiziksel v
 - **3B Grafikler & WebGL**: Three.js, `@react-three/fiber`, `@react-three/drei`
 - **Arayüz & Kontrol**: `leva`, Modern CSS (Glassmorphism)
 - **Derleyici & Araçlar**: Vite 5
-- **Yayın & CI/CD**: GitHub Pages (GitHub Actions) & Netlify
+- **Yayın & CI/CD**: Netlify
 
 ---
 
