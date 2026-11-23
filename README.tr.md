@@ -19,7 +19,7 @@
 [![React Three Drei](https://img.shields.io/badge/@react--three/drei-9.59-black?style=flat-square)](https://github.com/pmndrs/drei)
 [![Leva](https://img.shields.io/badge/Leva-GUI-ff5f5f?style=flat-square)](https://github.com/pmndrs/leva)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![GPL-3.0-only](https://img.shields.io/badge/Lisans-GPL--3.0-yellow.svg?style=flat-square)](LICENSE)
 
 ![Views](https://hits.sh/github.com/hfatih/samanyolu3d.svg?style=flat-square&label=g%C3%B6r%C3%BCnt%C3%BClenme&color=e7a0b9) [![Stars](https://img.shields.io/github/stars/hfatih/samanyolu3d?style=flat-square&label=y%C4%B1ld%C4%B1z&color=f0abc5)](https://github.com/hfatih/samanyolu3d/stargazers) [![Forks](https://img.shields.io/github/forks/hfatih/samanyolu3d?style=flat-square&label=fork&color=dba8c2)](https://github.com/hfatih/samanyolu3d/forks) [![Last commit](https://img.shields.io/github/last-commit/hfatih/samanyolu3d?style=flat-square&label=son%20commit&color=bca4dd)](https://github.com/hfatih/samanyolu3d/commits)
 
@@ -157,4 +157,6 @@ Proje Netlify otomatik dağıtımına hazırdır:
 
 ## 📄 Lisans
 
-Bu proje [MIT Lisansı](LICENSE) kapsamında lisanslanmıştır.
+Bu proje [GNU GPL v3.0](LICENSE) kapsamında lisanslanmıştır.
+
+Bu sürümde bize ait kod ve özgün içerik [GNU GPL v3.0](LICENSE) (GPL-3.0-only) altında yayımlanır. Üçüncü taraf kod, yazı tipleri, görseller, veriler ve marka öğeleri kendi lisans ve atıflarına tabidir. [Önceki lisans ve telif bildirimi](licenses/previous-license.txt).
