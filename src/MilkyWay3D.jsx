@@ -160,6 +160,8 @@ function PointsCloud({ positions, colors, size = 1.2 }) {
   const material = useMemo(() => new THREE.PointsMaterial({ vertexColors: true, size, sizeAttenuation: true, blending: THREE.AdditiveBlending, depthWrite: false }), [size]);
   return <points geometry={geom} material={material} />;
 }
+const labelFont = `${import.meta.env.BASE_URL}fonts/NotoSans-Regular.ttf`;
+
 function GalacticLabels() {
   const labels = [
     { text: "Güneş Sistemi", position: [85, 0, 0], color: "#ffcc00" },
@@ -169,7 +171,7 @@ function GalacticLabels() {
   return (
     <group>
       {labels.map((label, i) => (
-        <Text key={i} position={label.position} color={label.color} fontSize={6} anchorX="center" anchorY="middle">
+        <Text key={i} font={labelFont} position={label.position} color={label.color} fontSize={6} anchorX="center" anchorY="middle">
           {label.text}
         </Text>
       ))}

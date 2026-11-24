@@ -160,3 +160,5 @@ This repository is pre-configured for automatic Netlify continuous deployment:
 This project is licensed under the [GNU GPL v3.0](LICENSE).
 
 Project-owned code and original material in this revision are licensed under [GNU GPL v3.0](LICENSE) (GPL-3.0-only). Third-party code, fonts, imagery, data, and brand assets retain their own terms and attributions. [Previous license and copyright notice](licenses/previous-license.txt).
+
+The 3D labels use the bundled Noto Sans font in `public/fonts/`, so rendering does not depend on a font CDN. Its original license is included next to the font.
