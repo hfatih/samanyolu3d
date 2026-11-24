@@ -160,3 +160,5 @@ Proje Netlify otomatik dağıtımına hazırdır:
 Bu proje [GNU GPL v3.0](LICENSE) kapsamında lisanslanmıştır.
 
 Bu sürümde bize ait kod ve özgün içerik [GNU GPL v3.0](LICENSE) (GPL-3.0-only) altında yayımlanır. Üçüncü taraf kod, yazı tipleri, görseller, veriler ve marka öğeleri kendi lisans ve atıflarına tabidir. [Önceki lisans ve telif bildirimi](licenses/previous-license.txt).
+
+3B etiketler `public/fonts/` içindeki Noto Sans yazı tipini kullanır; çizim bir yazı tipi CDN’ine bağlı değildir. Özgün lisansı yazı tipinin yanında bulunur.
